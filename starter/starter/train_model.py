@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 
 # Add the necessary imports for the starter code.
 from ml.data import process_data
-from ml.model import train_model, compute_model_metrics
+from ml.model import train_model, compute_model_metrics, export_model_files
 import pandas as pd
 import pickle
 
@@ -66,8 +66,5 @@ print(f"Final Model F-beta score: {fbeta}")
 print(f"Final Model Precision: {precision}")
 print(f"Final Model Recall: {recall}")
 
-with open('models/model.pkl','wb') as f:
-    pickle.dump(final_model,f)
-
-with open('encoders/encoder.pkl','wb') as f:
-    pickle.dump(encoder,f)
+# save model and other files
+export_model_files(final_model, encoder, lb)

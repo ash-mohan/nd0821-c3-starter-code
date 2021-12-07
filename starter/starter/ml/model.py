@@ -1,5 +1,6 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score, accuracy_score
 from sklearn.ensemble import GradientBoostingClassifier
+import pickle
 
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
@@ -52,7 +53,7 @@ def inference(model, X):
 
     Inputs
     ------
-    model : ???
+    model : GradientBoostingClassifier
         Trained machine learning model.
     X : np.array
         Data used for prediction.
@@ -61,4 +62,67 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
-    pass
+
+    predictions = model.predict(X)
+
+    return predictions
+
+def export_model_files(model, encoder, lb):
+    """ Export model files and save to path.
+
+    Inputs
+    ------
+    model : GradientBoostingClassifier
+        Trained machine learning model.
+    encoder : OneHotEncoder
+        Encoder used for categorical variables
+    lb: LabelBinarizer
+        Label Binarizer used for labels
+    Returns
+    -------
+    None
+    """
+
+    with open('../models/model.pkl', 'wb') as f:
+        pickle.dump(model, f)
+
+    with open('../encoders/encoder.pkl', 'wb') as f:
+        pickle.dump(encoder, f)
+
+    with open('../lb/lb.pkl', 'wb') as f:
+        pickle.dump(lb, f)
+
+    return None
+
+
+def import_model_files(model_path, encoder_path, lb_path):
+    """ Import model files.
+
+    Inputs
+    ------
+    model_path : path
+        Path to model.pkl file
+    encoder_path : path
+        Path to encoder.pkl used for categorical variables
+    lb_path: path
+        path to lb.pkl used for labels
+    Returns
+    -------
+    model : GradientBoostingClassifier
+        Trained machine learning model.
+    encoder : OneHotEncoder
+        Encoder used for categorical variables
+    lb: LabelBinarizer
+        Label Binarizer used for labels
+    """
+
+    with open(model_path, 'rb') as f:
+        model = pickle.load(f)
+
+    with open(encoder_path, 'rb') as f:
+        encoder = pickle.load(f)
+
+    with open(lb_path, 'rb') as f:
+        lb = pickle.load(f)
+
+    return model, encoder, lb
