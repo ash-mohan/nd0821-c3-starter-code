@@ -67,6 +67,52 @@ def inference(model, X):
 
     return predictions
 
+
+def slice_performance(feature, model, data, X, y):
+    """ Test model performance on specific slice of data
+
+    Inputs
+    ------
+    feature : str
+        Feature to perform slice performance on
+    model : GradientBoostingClassifier
+        Trained machine learning model.
+    data : pandas DataFrame
+        Data frame to extract slices from
+    X : np.array
+        processed data used for prediction.
+    y : np.array
+        binary labels
+    Returns
+    -------
+    None
+
+    """
+
+    df = data.reset_index(drop=True)
+
+    with open("slice_output.txt", "w") as f:
+        f.write(f"Computing model performance on slices of {feature} feature\n\n")
+
+        for val in df[feature].unique():
+            f.write(f"Value for {feature}: {val}\n")
+
+            slice = df.loc[df[feature] == val, :]
+            X_slice = X[slice.index.values, :]
+            y_slice = y[slice.index.values]
+
+            y_pred = inference(model, X_slice)
+            precision, recall, fbeta, accuracy = compute_model_metrics(y_slice, y_pred)
+
+            f.write(f"Accuracy: {accuracy}\n")
+            f.write(f"F-beta score: {fbeta}\n")
+            f.write(f"Precision: {precision}\n")
+            f.write(f"Recall: {recall}\n")
+            f.write("-----------------\n")
+
+    return None
+
+
 def export_model_files(model, encoder, lb):
     """ Export model files and save to path.
 
@@ -83,13 +129,13 @@ def export_model_files(model, encoder, lb):
     None
     """
 
-    with open('../models/model.pkl', 'wb') as f:
+    with open('models/model.pkl', 'wb') as f:
         pickle.dump(model, f)
 
-    with open('../encoders/encoder.pkl', 'wb') as f:
+    with open('encoders/encoder.pkl', 'wb') as f:
         pickle.dump(encoder, f)
 
-    with open('../lb/lb.pkl', 'wb') as f:
+    with open('lb/lb.pkl', 'wb') as f:
         pickle.dump(lb, f)
 
     return None
