@@ -53,9 +53,9 @@ def model_inference(data: Data):
     ]
 
     model, encoder, lb = import_model_files(
-        "starter/models/model.pkl",
-        "starter/encoders/encoder.pkl",
-        "starter/lb/lb.pkl"
+        "starter/starter/models/model.pkl",
+        "starter/starter/encoders/encoder.pkl",
+        "starter/starter/lb/lb.pkl"
     )
 
 
