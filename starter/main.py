@@ -4,8 +4,6 @@ from starter.ml.model import export_model_files, import_model_files, inference
 from starter.ml.data import process_data
 from pydantic import BaseModel, Field
 from typing import Optional
-
-import pickle
 import uvicorn
 import pandas as pd
 
@@ -74,7 +72,7 @@ def model_inference(data: Data):
         lb=lb
     )
 
-    y_pred = model.predict(X)
+    y_pred = inference(model, X)
     label = lb.inverse_transform(y_pred)
 
     return {"results": {"binary_class": y_pred, "class": label}}
