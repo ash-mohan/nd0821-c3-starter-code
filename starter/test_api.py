@@ -32,8 +32,8 @@ def test_post1():
 
     assert r.status_code == 200
     assert r.json()["results"] == {
-        "binary_class": 0,
-        "class": '<=50K'
+        "binary_class": [0],
+        "class": ['<=50K']
     }
 
 def test_post_2():
@@ -58,6 +58,6 @@ def test_post_2():
 
     assert r.status_code == 200
     assert r.json()["results"] == {
-        "binary_class": 1,
-        "class": '>50K'
+        "binary_class": [1],
+        "class": ['>50K']
     }
