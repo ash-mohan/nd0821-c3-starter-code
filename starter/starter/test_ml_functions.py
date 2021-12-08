@@ -22,7 +22,7 @@ def data():
         "native-country",
     ]
 
-    data = pd.read_csv("data/census_data_clean.csv")
+    data = pd.read_csv("starter/data/census_data_clean.csv")
     train, test = train_test_split(data, test_size=0.2, random_state=42)
 
     X_train, y_train, encoder, lb = process_data(
