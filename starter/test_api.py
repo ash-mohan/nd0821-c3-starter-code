@@ -4,10 +4,12 @@ import json
 
 client = TestClient(app)
 
+
 def test_root():
     r = client.get("/")
     assert r.status_code == 200
     assert r.json() == {"message": "Welcome from inference API"}
+
 
 def test_post1():
 
@@ -35,6 +37,7 @@ def test_post1():
         "binary_class": [0],
         "class": ['<=50K']
     }
+
 
 def test_post_2():
 

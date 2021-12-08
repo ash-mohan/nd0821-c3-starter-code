@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
+
 @pytest.fixture(scope="session")
 def data():
 
@@ -81,14 +82,10 @@ def test_model_metrics(data):
     # we will check that the range is valid
     X_train, _, y_train, _, _, _ = data
     model = train_model(X_train, y_train)
-    y_pred = model.predict(X_train)
+    y_pred = inference(model, X_train)
     precision, recall, fbeta, accuracy = compute_model_metrics(y_train, y_pred)
 
     assert 0 <= precision <= 1
     assert 0 <= recall <= 1
     assert 0 <= fbeta <= 1
     assert 0 <= accuracy <= 1
-
-
-
-

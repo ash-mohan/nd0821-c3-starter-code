@@ -6,7 +6,6 @@ from sklearn.model_selection import train_test_split
 from ml.data import process_data
 from ml.model import train_model, inference, slice_performance, compute_model_metrics, export_model_files
 import pandas as pd
-import pickle
 
 # Add code to load in the data.
 data = pd.read_csv("../data/census_data_clean.csv")

@@ -1,11 +1,11 @@
 # Put the code for your API here.
 from fastapi import FastAPI
-from starter.ml.model import export_model_files, import_model_files, inference
+from starter.ml.model import import_model_files, inference
 from starter.ml.data import process_data
 from pydantic import BaseModel, Field
-from typing import Optional
 import uvicorn
 import pandas as pd
+
 
 class Data(BaseModel):
     age: int = Field(..., gt=0, example=28)
@@ -29,6 +29,7 @@ class Data(BaseModel):
                                 alias="native-country",
                                 example="United-States")
 
+
 app = FastAPI()
 
 
@@ -39,7 +40,6 @@ def read_root():
 
 @app.post("/inference/")
 def model_inference(data: Data):
-
 
     cat_features = [
         "workclass",
@@ -58,10 +58,8 @@ def model_inference(data: Data):
         "starter/starter/lb/lb.pkl"
     )
 
-
     request_body = data.dict(by_alias=True)
     request_body = pd.DataFrame(request_body, index=[0])
-
 
     X, _, _, _ = process_data(
         request_body,
