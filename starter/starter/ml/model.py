@@ -1,4 +1,5 @@
-from sklearn.metrics import fbeta_score, precision_score, recall_score, accuracy_score
+from sklearn.metrics import fbeta_score, precision_score, recall_score, \
+    accuracy_score
 from sklearn.ensemble import GradientBoostingClassifier
 import pickle
 
@@ -28,7 +29,8 @@ def train_model(X_train, y_train):
 
 def compute_model_metrics(y, preds):
     """
-    Validates the trained machine learning model using precision, recall, and F1.
+    Validates the trained machine learning model using precision, recall, and
+    F1.
 
     Inputs
     ------
@@ -93,7 +95,8 @@ def slice_performance(feature, model, data, X, y):
     df = data.reset_index(drop=True)
 
     with open("slice_output.txt", "w") as f:
-        f.write(f"Computing model performance on slices of {feature} feature\n\n")
+        f.write(f"Computing model performance on slices of {feature} "
+                f"feature\n\n")
 
         for val in df[feature].unique():
             f.write(f"Value for {feature}: {val}\n")
@@ -103,7 +106,8 @@ def slice_performance(feature, model, data, X, y):
             y_slice = y[slice.index.values]
 
             y_pred = inference(model, X_slice)
-            precision, recall, fbeta, accuracy = compute_model_metrics(y_slice, y_pred)
+            precision, recall, fbeta, accuracy = compute_model_metrics(
+                y_slice, y_pred)
 
             f.write(f"Accuracy: {accuracy}\n")
             f.write(f"F-beta score: {fbeta}\n")

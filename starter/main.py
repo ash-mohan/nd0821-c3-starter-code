@@ -5,6 +5,14 @@ from starter.ml.data import process_data
 from pydantic import BaseModel, Field
 import uvicorn
 import pandas as pd
+import os
+
+
+if "DYNO" in os.environ and os.path.isdir(".dvc"):
+    os.system("dvc config core.no_scm true")
+    if os.system("dvc pull") != 0:
+        exit("dvc pull failed")
+    os.system("rm -r .dvc .apt/usr/lib/dvc")
 
 
 class Data(BaseModel):
@@ -71,7 +79,8 @@ def model_inference(data: Data):
     y_pred = inference(model, X)
     label = lb.inverse_transform(y_pred)
 
-    return {"results": {"binary_class": y_pred.tolist(), "class": label.tolist()}}
+    return {"results": {"binary_class": y_pred.tolist(),
+                        "class": label.tolist()}}
 
 
 if __name__ == "__main__":
