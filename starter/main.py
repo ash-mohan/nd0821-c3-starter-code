@@ -1,11 +1,20 @@
 # Put the code for your API here.
 from fastapi import FastAPI
-from starter.ml.model import import_model_files, inference
-from starter.ml.data import process_data
 from pydantic import BaseModel, Field
+
 import uvicorn
 import pandas as pd
 import os
+import sys
+
+sys.path.insert(1, './starter/ml')
+sys.path.append('./starter/starter/ml')
+
+try:
+    from data import process_data
+    from model import import_model_files, inference
+except Exception as e:
+    raise e
 
 
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
