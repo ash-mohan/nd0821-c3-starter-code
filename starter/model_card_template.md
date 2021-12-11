@@ -12,11 +12,26 @@ The data used to train this model is the publicly available [Census Bureau data]
 The training data consists of 26048 examples, each of which has 105 features. This data can be recreated by setting the random_state to 42 
 when making use of the [train_test_split](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html) 
 function in scikit learn. 
+
+Model Performance on the Training Data is as follows:
+
+- Training Accuracy: 0.8683200245700246
+- Training F-beta score: 0.6911579326490185
+- Training Precision: 0.793631100082713
+- Training Recall: 0.6121212121212121
+
 ## Evaluation Data
 The data used to train this model is the publicly available [Census Bureau data](https://www.kaggle.com/uciml/adult-census-income). 
 The testing data consistsof 6513 examples, each of which has 105 features. This data can be recreated by setting the random_state to 42 
 when making use of the [train_test_split](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html) 
 function in scikit learn. 
+
+Model Performance on the Testing Data is as follows:
+
+- Testing Accuracy: 0.8713342545677875
+- Testing F-beta score: 0.7002861230329042
+- Testing Precision: 0.7991836734693878
+- Testing Recall: 0.6231699554423934
 ## Metrics
 The following metrics were used to evaluate the model:
 - precision: The precision is the ratio tp / (tp + fp) where tp is the number of true positives and fp the number of false positives. 
